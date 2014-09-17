@@ -6,7 +6,7 @@ import processing.core.PVector;
 
 public class Particle {
 	private float mass;
-	private PVector pos;
+	private PVector pos; 
 	private PVector vel;
 	private boolean mobile = true;
 	private ArrayList<Force> forces;

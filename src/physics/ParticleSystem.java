@@ -51,7 +51,7 @@ public class ParticleSystem {
 
 	/**
 	 * Creates a new ParticleSystem. It will be have initially no particles 
-	 * and configured to use the Verlet integrator. 
+	 * and configured to use the RK2 integrator. 
 	 * 
 	 * @example Hello
 	 * @param	hostPApplet The parent PApplet 	
