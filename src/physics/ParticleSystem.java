@@ -43,10 +43,12 @@ public class ParticleSystem {
 	private PApplet host;
 	private final static String VERSION = "##library.prettyVersion##";
 	
+	private ArrayList<RigidBody> rigidbodies;
 	private ArrayList<Particle> particles;
 	private ArrayList<Force> forces;
 	private Integrator integrator;
 	private float dt;
+	private double elapsedTime = 0;
 	
 
 	/**
@@ -62,12 +64,17 @@ public class ParticleSystem {
 	    host.registerMethod("dispose", this);
 	    
 	    particles = new ArrayList<Particle>();
+	    rigidbodies = new ArrayList<RigidBody>();
 	    this.setIntegrator(new RK2Integrator(this));
 	    dt = 1;
 	}
 	
 	public void addForce(Force f){
 		forces.add(f);
+	}
+	
+	public void addRigidBody(RigidBody r){
+		rigidbodies.add(r);
 	}
 	
 	public void addParticle(Particle p){
@@ -77,7 +84,15 @@ public class ParticleSystem {
 	 * Called before draw() is run -- should not be called by the user. 
 	 */
 	public void pre(){
+		for(RigidBody r : rigidbodies){
+			r.rigidify(dt);
+		}
 		integrator.step(dt);
+		elapsedTime += dt;
+	}
+	
+	public double getElapsedTime(){
+		return elapsedTime;
 	}
 
 	public ArrayList<Particle> getParticles(){
